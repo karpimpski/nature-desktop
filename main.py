@@ -4,8 +4,6 @@ user32 = ctypes.windll.user32
 import os
 import requests
 import json
-import urllib
-import time
 
 def screen_resolution_ratio():
     """find desktop screen resolution"""
