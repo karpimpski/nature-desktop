@@ -1,10 +1,33 @@
 #import libraries
 import ctypes
+user32 = ctypes.windll.user32
 import os
 import requests
 import json
 import urllib
 import time
+
+def screen_resolution_ratio():
+    """find desktop screen resolution"""
+    width = user32.GetSystemMetrics(0)
+    height = user32.GetSystemMetrics(1)
+    ratio = width/height
+    return ratio
+
+def find_most_compatible(children):
+    """take a list of images and return the most compatible one"""
+    most_compatible = [None, 0]
+    for i in range(0, len(children)):
+        #get image data
+        url = children[i]["data"]["url"]
+        image = children[i]["data"]["preview"]["images"][0]["source"]
+        image_resolution_ratio = image["width"]/image["height"]
+        
+        #compare resolution difference
+        if abs(screen_resolution_ratio() - image_resolution_ratio) < abs(screen_resolution_ratio() - most_compatible[1]):
+            most_compatible = [url, image_resolution_ratio]
+    
+    return most_compatible[0]
 
 def get_image_url():
     """if there is no error, return URL of background image from EarthPorn"""
@@ -14,10 +37,13 @@ def get_image_url():
     response = json.loads(result.text)
 
     if "error" in response:
+        #print error message if there is an error
         print('Error ' + str(response["error"]) + '. ' + response["message"])
         return 1
     else:
-        url = response["data"]["children"][0]["data"]["url"]
+        #find most compatible image and return it
+        children = response["data"]["children"]
+        url = find_most_compatible(children)
         return url
 
 def download_image(image_url):
@@ -34,5 +60,5 @@ def set_background():
 image_url = get_image_url()
 
 if image_url != 1:
-    download_image(get_image_url())
+    download_image(image_url)
     set_background()
