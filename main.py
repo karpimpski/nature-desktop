@@ -14,7 +14,7 @@ def get_image_url():
     response = json.loads(result.text)
 
     if "error" in response:
-        print(response)
+        print('Error ' + str(response["error"]) + '. ' + response["message"])
         return 1
     else:
         url = response["data"]["children"][0]["data"]["url"]
@@ -36,5 +36,3 @@ image_url = get_image_url()
 if image_url != 1:
     download_image(get_image_url())
     set_background()
-else:
-    print('Error.')
