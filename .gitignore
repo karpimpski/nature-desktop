@@ -1,2 +1,4 @@
 .vscode
 image.*
+dist
+build
