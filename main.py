@@ -30,7 +30,7 @@ def find_most_compatible(children):
 def get_image_url():
     """if there is no error, return URL of background image from EarthPorn"""
     #gather information from reddit API
-    request_url = 'https://www.reddit.com/r/EarthPorn/top/.json?count=20'
+    request_url = 'https://www.reddit.com/r/EarthPorn/top/.json?limit=20'
     result = requests.get(request_url, headers = {'User-agent': 'friendly program'})
     response = json.loads(result.text)
 
