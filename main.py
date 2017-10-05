@@ -46,7 +46,8 @@ def get_image_url():
 
 def download_image(image_url):
     """download and save image to current directory"""
-    f = open('image.jpg','wb')
+    file_path = 'image.' + image_url.split('.')[-1]
+    f = open(file_path,'wb')
     f.write(requests.get(image_url).content)
     f.close()
 
