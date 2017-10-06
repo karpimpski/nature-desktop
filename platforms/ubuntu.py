@@ -1,5 +1,6 @@
 import os
 import curses
+import requests
 stdscr = curses.initscr()
 
 class Ubuntu():
@@ -14,12 +15,13 @@ class Ubuntu():
         f.write(requests.get(image_url).content)
         f.close()
     
-    def screen_resolution_ratio():
+    def screen_resolution_ratio(self):
         """find desktop screen resolution"""
         height,width = stdscr.getmaxyx()
         return width/height
 
-    def set_background():
+    def set_background(self):
         """set the desktop background"""
-        file_path = os.path.expanduser('~/.image.jpg')
-        os.system("gsettings set org.gnome.desktop.background picture-uri file://" + file_path)
+        file_path = os.getcwd() + '/' + self.image_file_name
+        print(file_path)
+        os.system("/usr/bin/gsettings set org.gnome.desktop.background picture-uri file:" + file_path)
