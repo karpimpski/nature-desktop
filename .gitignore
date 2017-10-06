@@ -3,3 +3,4 @@ image.*
 dist
 build
 icon.ico
+*.spec
