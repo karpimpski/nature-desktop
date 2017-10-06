@@ -1,17 +1,10 @@
 #import libraries
-import ctypes
-user32 = ctypes.windll.user32
-import os
 import requests
 import json
 import time
 
-def screen_resolution_ratio():
-    """find desktop screen resolution"""
-    width = user32.GetSystemMetrics(0)
-    height = user32.GetSystemMetrics(1)
-    ratio = width/height
-    return ratio
+#import platform modules
+import platforms.windows as windows
 
 def image_ratio(image):
     """return width/height ratio of given image"""
@@ -23,7 +16,7 @@ def find_most_compatible(children):
     """take a list of images and return the most compatible one"""
     children = sorted(children, key=lambda k: image_ratio(k))
     most_compatible = min(
-        children, key=lambda x:abs(image_ratio(x)-screen_resolution_ratio())
+        children, key=lambda x:abs(image_ratio(x)-platform.screen_resolution_ratio())
     )
     url = most_compatible['data']['url']
     return url
@@ -52,17 +45,15 @@ def download_image(image_url):
     f.write(requests.get(image_url).content)
     f.close()
 
-def set_background():
-    """set the desktop background"""
-    path = os.getcwd()
-    ctypes.windll.user32.SystemParametersInfoW(20, 0, path + '\image.jpg' , 0)
+#determine platform
+platform = windows
 
 start_time = time.time()
 image_url = get_image_url()
 
 if image_url != 1:
     download_image(image_url)
-    set_background()
+    platform.set_background()
 
 print("--- %s seconds ---" % (time.time() - start_time))
 
