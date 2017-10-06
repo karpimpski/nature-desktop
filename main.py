@@ -65,3 +65,5 @@ if image_url != 1:
     set_background()
 
 print("--- %s seconds ---" % (time.time() - start_time))
+
+input("\nPress enter key to exit.")
