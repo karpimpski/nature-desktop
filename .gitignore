@@ -2,6 +2,5 @@
 image.*
 dist
 build
-icon.ico
 *.spec
 __pycache__
