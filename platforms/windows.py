@@ -24,5 +24,5 @@ class Windows():
 
     def set_background(self):
         """set the desktop background"""
-        path = os.getcwd()
-        ctypes.windll.user32.SystemParametersInfoW(20, 0, path + '\\' + self.image_file_name , 0)
+        path = os.getcwd() + '\\' + self.image_file_name
+        ctypes.windll.user32.SystemParametersInfoW(20, 0, path , 0)

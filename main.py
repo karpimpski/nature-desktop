@@ -1,14 +1,17 @@
 #import libraries
 import time
+import sys
 
 #import general methods module
 import functions
 
-#import platform modules
-from platforms.windows import Windows
-
 #determine platform
-platform = Windows()
+if sys.platform == 'win32' or sys.platform == 'cygwin':
+    from platforms.windows import Windows
+    platform = Windows()
+elif sys.platform == 'linux2':
+    from platforms.ubuntu import ubuntu
+    platform = Ubuntu()
 
 start_time = time.time()
 image_url = functions.get_image_url(platform)
