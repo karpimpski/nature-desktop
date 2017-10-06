@@ -4,6 +4,7 @@ user32 = ctypes.windll.user32
 import os
 import requests
 import json
+import time
 
 def screen_resolution_ratio():
     """find desktop screen resolution"""
@@ -12,20 +13,20 @@ def screen_resolution_ratio():
     ratio = width/height
     return ratio
 
+def image_ratio(image):
+    """return width/height ratio of given image"""
+    width = image['data']['preview']['images'][0]['source']['width']
+    height = image['data']['preview']['images'][0]['source']['height']
+    return width/height
+
 def find_most_compatible(children):
     """take a list of images and return the most compatible one"""
-    most_compatible = [None, 0]
-    for i in range(0, len(children)):
-        #get image data
-        url = children[i]["data"]["url"]
-        image = children[i]["data"]["preview"]["images"][0]["source"]
-        image_resolution_ratio = image["width"]/image["height"]
-        
-        #compare resolution difference
-        if abs(screen_resolution_ratio() - image_resolution_ratio) < abs(screen_resolution_ratio() - most_compatible[1]):
-            most_compatible = [url, image_resolution_ratio]
-    
-    return most_compatible[0]
+    children = sorted(children, key=lambda k: image_ratio(k))
+    most_compatible = min(
+        children, key=lambda x:abs(image_ratio(x)-screen_resolution_ratio())
+    )
+    url = most_compatible['data']['url']
+    return url
 
 def get_image_url():
     """if there is no error, return URL of background image from EarthPorn"""
@@ -56,8 +57,11 @@ def set_background():
     path = os.getcwd()
     ctypes.windll.user32.SystemParametersInfoW(20, 0, path + '\image.jpg' , 0)
 
+start_time = time.time()
 image_url = get_image_url()
 
 if image_url != 1:
     download_image(image_url)
     set_background()
+
+print("--- %s seconds ---" % (time.time() - start_time))
