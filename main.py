@@ -4,7 +4,7 @@ import json
 import time
 
 #import platform modules
-import platforms.windows as windows
+from platforms.windows import Windows
 
 def image_ratio(image):
     """return width/height ratio of given image"""
@@ -38,21 +38,16 @@ def get_image_url():
         url = find_most_compatible(children)
         return url
 
-def download_image(image_url):
-    """download and save image to current directory"""
-    file_path = 'image.' + image_url.split('.')[-1]
-    f = open(file_path,'wb')
-    f.write(requests.get(image_url).content)
-    f.close()
+
 
 #determine platform
-platform = windows
+platform = Windows()
 
 start_time = time.time()
 image_url = get_image_url()
 
 if image_url != 1:
-    download_image(image_url)
+    platform.download_image(image_url)
     platform.set_background()
 
 print("--- %s seconds ---" % (time.time() - start_time))
