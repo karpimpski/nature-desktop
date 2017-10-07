@@ -2,6 +2,8 @@ import ctypes
 user32 = ctypes.windll.user32
 import os
 import requests
+import easygui
+from shutil import copyfile
 
 class Windows():
     def __init__(self):
@@ -26,3 +28,9 @@ class Windows():
         """set the desktop background"""
         path = os.getcwd() + '\\' + self.image_file_name
         ctypes.windll.user32.SystemParametersInfoW(20, 0, path , 0)
+    
+    def save_background(self):
+        """give user the option to save the image for future use"""
+        path = easygui.filesavebox(default=self.image_file_name)
+        if(path):
+            copyfile(os.getcwd() + '\\' + self.image_file_name, path)

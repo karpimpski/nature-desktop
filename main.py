@@ -6,7 +6,6 @@ import sys
 import functions
 
 #determine platform
-print(sys.platform)
 if sys.platform == 'win32' or sys.platform == 'cygwin':
     from windows import Windows
     platform = Windows()
@@ -20,6 +19,7 @@ image_url = functions.get_image_url(platform)
 if image_url != 1:
     platform.download_image(image_url)
     platform.set_background()
+    platform.save_background()
 
 print("--- %s seconds ---" % (time.time() - start_time))
 

@@ -26,3 +26,9 @@ class Ubuntu():
         file_path = os.getcwd() + '/' + self.image_file_name
         print(file_path)
         os.system("/usr/bin/gsettings set org.gnome.desktop.background picture-uri file:" + file_path)
+    
+    def save_background(self):
+        """give user the option to save the image for future use"""
+        path = easygui.filesavebox(default=self.image_file_name)
+        if(path):
+            copyfile(os.getcwd() + '/' + self.image_file_name, path)
