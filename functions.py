@@ -15,6 +15,10 @@ def find_most_compatible(children, platform):
         children, key=lambda x:abs(image_ratio(x)-platform.screen_resolution_ratio())
     )
     url = most_compatible['data']['url']
+    
+    if len(url.split('.')[-1]) != 3:
+        url = url + '.jpg'
+        
     return url
 
 def get_image_url(platform):
