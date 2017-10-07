@@ -1,6 +1,7 @@
 import os
 import curses
 import requests
+import readline
 stdscr = curses.initscr()
 
 class Ubuntu():
