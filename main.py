@@ -8,10 +8,10 @@ import functions
 #determine platform
 print(sys.platform)
 if sys.platform == 'win32' or sys.platform == 'cygwin':
-    from platforms.windows import Windows
+    from windows import Windows
     platform = Windows()
 elif sys.platform == 'linux' or sys.platform == 'linux2':
-    from platforms.ubuntu import Ubuntu
+    from ubuntu import Ubuntu
     platform = Ubuntu()
 
 start_time = time.time()
