@@ -3,6 +3,7 @@ import curses
 import requests
 import readline
 stdscr = curses.initscr()
+from shutil import copyfile
 
 class Ubuntu():
     def __init__(self):
