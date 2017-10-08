@@ -20,6 +20,4 @@ if image_url != 1:
     platform.set_background()
     platform.save_background()
 
-input("\nPress enter key to exit.")
-
 sys.exit()
