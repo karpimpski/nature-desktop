@@ -33,4 +33,9 @@ class Windows():
         """give user the option to save the image for future use"""
         path = easygui.filesavebox(default=self.image_file_name)
         if(path):
+            #add file extension if none is given
+            if '.' not in path:
+                path += '.' + self.image_file_name.split('.')[-1]
+            
+            #copy image file to given path
             copyfile(os.getcwd() + '\\' + self.image_file_name, path)

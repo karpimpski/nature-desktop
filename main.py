@@ -1,9 +1,12 @@
 #import libraries
-import time
 import sys
+import easygui
 
 #import general methods module
 import functions
+
+#set variables
+title = 'Nature Desktop'
 
 #determine platform
 if sys.platform == 'win32' or sys.platform == 'cygwin':
@@ -13,11 +16,17 @@ elif sys.platform == 'linux' or sys.platform == 'linux2':
     from ubuntu import Ubuntu
     platform = Ubuntu()
 
-image_url = functions.get_image_url(platform)
+#run application
+message = 'This application will change your desktop\'s background. Continue?'
+save_message = 'Would you like to save the image?'
 
-if image_url != 1:
-    platform.download_image(image_url)
-    platform.set_background()
-    platform.save_background()
+if easygui.ynbox(message, title, ('Yes', 'No')):
+    image_url = functions.get_image_url(platform)
+
+    if image_url != 1:
+        platform.download_image(image_url)
+        platform.set_background()
+        if easygui.ynbox(save_message, title, ('Yes','No')):
+            platform.save_background()
 
 sys.exit()
