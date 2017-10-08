@@ -13,15 +13,12 @@ elif sys.platform == 'linux' or sys.platform == 'linux2':
     from ubuntu import Ubuntu
     platform = Ubuntu()
 
-start_time = time.time()
 image_url = functions.get_image_url(platform)
 
 if image_url != 1:
     platform.download_image(image_url)
     platform.set_background()
     platform.save_background()
-
-print("--- %s seconds ---" % (time.time() - start_time))
 
 input("\nPress enter key to exit.")
 
