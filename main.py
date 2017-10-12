@@ -2,11 +2,8 @@
 import sys
 import easygui
 
-#import general methods module
+import config
 import functions
-
-#set variables
-title = 'Nature Desktop'
 
 #determine platform
 if sys.platform == 'win32' or sys.platform == 'cygwin':
@@ -18,15 +15,15 @@ elif sys.platform == 'linux' or sys.platform == 'linux2':
 
 #run application
 message = 'This application will change your desktop\'s background. Continue?'
-save_message = 'Would you like to save the image?'
+save_message = 'The background has been set. Would you like to save the image?'
 
-if easygui.ynbox(message, title, ('Yes', 'No')):
+if easygui.ynbox(message, config.title, ('Yes', 'No')):
     image_url = functions.get_image_url(platform)
 
     if image_url != 1:
         platform.download_image(image_url)
         platform.set_background()
-        if easygui.ynbox(save_message, title, ('Yes','No')):
+        if easygui.ynbox(save_message, config.title, ('Yes','No')):
             platform.save_background()
 
 sys.exit()
