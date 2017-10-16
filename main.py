@@ -3,15 +3,15 @@ import sys
 import tkinter
 from tkinter import messagebox
 
-import config
-import functions
+from modules import config
+from modules import functions
 
 #determine platform
 if sys.platform == 'win32' or sys.platform == 'cygwin':
-    from windows import Windows
+    from platforms.windows import Windows
     platform = Windows()
 elif sys.platform == 'linux' or sys.platform == 'linux2':
-    from ubuntu import Ubuntu
+    from platforms.ubuntu import Ubuntu
     platform = Ubuntu()
 
 #start and close tkinter root window
