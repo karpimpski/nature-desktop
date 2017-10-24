@@ -27,3 +27,5 @@ def draw_second():
 
 if(app.successful):
     draw_second()
+
+sys.exit()

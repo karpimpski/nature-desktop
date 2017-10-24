@@ -29,7 +29,6 @@ def get_image_url(platform):
     response = json.loads(result.text)
 
     if "error" in response:
-        #print error message if there is an error
         print('Error ' + str(response["error"]) + '. ' + response["message"])
         return 1
     else:
