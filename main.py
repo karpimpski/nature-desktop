@@ -19,6 +19,11 @@ root = Tk()
 app = first_window.Application(root, functions, platform, master=root)
 app.mainloop()
 
-root = Tk()
-app = second_window.Application(root, platform, master=root)
-app.mainloop()
+#put this in a function because putting block in if statement led to error
+def draw_second():
+    root = Tk()
+    app = second_window.Application(root, platform, master=root)
+    app.mainloop()
+
+if(app.successful):
+    draw_second()

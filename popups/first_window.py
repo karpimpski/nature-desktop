@@ -7,6 +7,7 @@ class Application(Frame):
         self.root = root
         self.functions = functions
         self.platform = platform
+        self.successful = False
         self.grid()
         self.create_widgets()
 
@@ -47,3 +48,4 @@ class Application(Frame):
             #download and set the background image
             self.platform.download_image(image_url)
             self.platform.set_background()
+            self.successful = True

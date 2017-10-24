@@ -2,6 +2,7 @@ import os
 import curses
 import requests
 import readline
+import easygui
 stdscr = curses.initscr()
 from shutil import copyfile
 
