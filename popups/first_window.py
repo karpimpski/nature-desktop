@@ -2,12 +2,13 @@ from tkinter import *
 from tkinter.ttk import *
 
 class Application(Frame):
-    def __init__(self, root, functions, platform, master=None):
+    def __init__(self, functions, platform, master=None):
         super().__init__(master)
-        self.root = root
+        self.root = master
         self.functions = functions
         self.platform = platform
         self.successful = False
+        self.settings_chosen = False
         self.grid()
         self.create_widgets()
 
@@ -36,7 +37,7 @@ class Application(Frame):
         self.quit_button.grid(row=0, column=1)
 
         #create settings button to open settings window
-        self.second_button = Button(buttons_frame, text='Settings')
+        self.second_button = Button(buttons_frame, text='Settings', command=self.settings_hit)
         self.second_button.grid(row=0, column=2)
 
     def yes_hit(self):
@@ -49,3 +50,7 @@ class Application(Frame):
             self.platform.download_image(image_url)
             self.platform.set_background()
             self.successful = True
+
+    def settings_hit(self):
+        self.root.destroy()
+        self.settings_chosen = True

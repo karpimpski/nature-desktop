@@ -2,9 +2,9 @@ from tkinter import *
 from tkinter.ttk import *
 
 class Application(Frame):
-    def __init__(self, root, platform, master=None):
+    def __init__(self, platform, master=None):
         super().__init__(master)
-        self.root = root
+        self.root = master
         self.platform = platform
         self.grid()
         self.create_widgets()

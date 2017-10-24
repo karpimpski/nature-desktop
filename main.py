@@ -5,7 +5,7 @@ from tkinter.ttk import *
 
 from modules import config
 from modules import functions
-from popups import first_window, second_window
+from popups import first_window, second_window, settings_window
 
 #determine platform
 if sys.platform == 'win32' or sys.platform == 'cygwin':
@@ -15,17 +15,28 @@ elif sys.platform == 'linux' or sys.platform == 'linux2':
     from platforms.ubuntu import Ubuntu
     platform = Ubuntu()
 
-root = Tk()
-app = first_window.Application(root, functions, platform, master=root)
-app.mainloop()
+app = None
 
-#put this in a function because putting block in if statement led to error
-def draw_second():
+def draw_first():
     root = Tk()
-    app = second_window.Application(root, platform, master=root)
+    app = first_window.Application(functions, platform, master=root)
     app.mainloop()
 
-if(app.successful):
-    draw_second()
+    if(app.successful):
+        draw_second()
+    elif(app.settings_chosen):
+        draw_settings()
+
+def draw_second():
+    root = Tk()
+    app = second_window.Application(platform, master=root)
+    app.mainloop()
+
+def draw_settings():
+    root = Tk()
+    app = settings_window.Application(master=root)
+    app.mainloop()
+
+draw_first()
 
 sys.exit()
