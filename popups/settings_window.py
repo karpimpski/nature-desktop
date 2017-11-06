@@ -10,7 +10,7 @@ class Application(Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        self.startup = IntVar()
+        startup = BooleanVar()
 
         self.winfo_toplevel().title("Nature Desktop")
 
@@ -32,7 +32,7 @@ class Application(Frame):
         self.startup_label = Label(left_frame, text="Run on startup?")
         self.startup_label.grid(row=0)
 
-        self.startup_check = Checkbutton(right_frame, variable=self.startup)
+        self.startup_check = Checkbutton(right_frame, variable=startup)
         self.startup_check.grid(row=0)
 
         #create buttons frame
@@ -41,7 +41,7 @@ class Application(Frame):
 
         #create save button
         self.save_button = Button(
-            buttons_frame, text="Save", command=self.save
+            buttons_frame, text="Save", command=lambda: self.save(startup)
         )
         self.save_button.grid(column=0, row=0)
 
@@ -51,5 +51,5 @@ class Application(Frame):
         )
         self.back_button.grid(column=1, row=0)
 
-    def save(self):
-        print(self.startup)
+    def save(self, startup):
+        print(startup.get())
