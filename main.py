@@ -5,7 +5,7 @@ from tkinter.ttk import *
 
 from modules import config
 from modules import functions
-from popups import first_window, second_window, settings_window
+from popups import first_window, second_window
 
 #determine platform
 if sys.platform == 'win32' or sys.platform == 'cygwin':
@@ -24,17 +24,10 @@ def draw_first():
 
     if(app.successful):
         draw_second()
-    elif(app.settings_chosen):
-        draw_settings()
 
 def draw_second():
     root = Tk()
     app = second_window.Application(platform, master=root)
-    app.mainloop()
-
-def draw_settings():
-    root = Tk()
-    app = settings_window.Application(master=root)
     app.mainloop()
 
 draw_first()
